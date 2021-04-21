@@ -9,6 +9,8 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
+      AZURE_STORAGE_TFSTATE: az-terraform-state
+      AZURE_STORAGE_ACCOUNT_OPS: storageops233836
       ARM_CLIENT_ID: ${{secrets.ARM_CLIENT_ID}}
       ARM_CLIENT_SECRET: ${{secrets.ARM_CLIENT_SECRET}}
       ARM_SUBSCRIPTION_ID: ${{secrets.AZURE_SUBSCRIPTION_ID}}
@@ -52,4 +54,7 @@ jobs:
         with:
           azcliversion: 2.0.72
           inlineScript: |
-            az storage blob lease break -b "terraform.tfstate" -c ${AZURE_STORAGE_TFSTATE} --account-name ${AZURE_STORAGE_ACCOUNT_OPS}
+            az storage blob lease break \
+              --blob-name "terraform.tfstate" \
+              --container-name ${{ env.AZURE_STORAGE_TFSTATE }} \
+              --account-name ${{ env.AZURE_STORAGE_ACCOUNT_OPS }}
