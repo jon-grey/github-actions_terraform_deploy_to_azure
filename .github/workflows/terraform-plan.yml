@@ -37,16 +37,9 @@ jobs:
 
       - name: Azure Login
         uses: azure/login@v1
+        if: ${{ failure() || cancelled() }}        
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
-
-      - name: Azure CLI script
-        uses: azure/CLI@v1
-        with:
-          azcliversion: 2.0.72
-          inlineScript: |
-            az account show
-            az storage -h
 
       - name: The job has failed or was cancelled, so we break terraform.tfstate blob lease
         uses: azure/CLI@v1
@@ -54,16 +47,9 @@ jobs:
         with:
           azcliversion: 2.0.72
           inlineScript: |
-            isLocked=$(az storage blob show \
-              --name "terraform.tfstate" \
-              --container-name ${{ env.AZURE_STORAGE_TFSTATE }} --account-name ${{ env.AZURE_STORAGE_ACCOUNT_OPS }} \
-              --query "properties.lease.status=='locked'" \
-              -o tsv)
+            isLocked=$(az storage blob show --name "terraform.tfstate" --container-name ${{ env.AZURE_STORAGE_TFSTATE }} --account-name ${{ env.AZURE_STORAGE_ACCOUNT_OPS }}  --query "properties.lease.status=='locked'" -o tsv)
 
             if $isLocked; then
-              az storage blob lease break \
-                --blob-name "terraform.tfstate" \
-                --container-name ${{ env.AZURE_STORAGE_TFSTATE }} \
-                --account-name ${{ env.AZURE_STORAGE_ACCOUNT_OPS }}
+              az storage blob lease break --blob-name "terraform.tfstate" --container-name ${{ env.AZURE_STORAGE_TFSTATE }} --account-name ${{ env.AZURE_STORAGE_ACCOUNT_OPS }}
             fi
 

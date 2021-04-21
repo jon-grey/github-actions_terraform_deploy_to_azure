@@ -5,6 +5,20 @@
 
 ```sh
 bash 00.main.sh
+
+git add .
+git commit -m "Update at $(date)"
+git push --set-upstream origin branch
+```
+
+## Manually unlock terraform.tfstate blob in azure
+
+```sh
+isLocked=$(az storage blob show --name "terraform.tfstate"  --container-name az-terraform-state --account-name storageops233836 --query "properties.lease.status=='locked'" -o tsv)
+ 
+if  $isLocked; then 
+    az storage blob lease break --blob-name "terraform.tfstate" --container-name az-terraform-state --account-name storageops233836                
+fi      
 ```
 
 
