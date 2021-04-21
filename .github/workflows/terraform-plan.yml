@@ -60,7 +60,7 @@ jobs:
               --query "properties.lease.status=='locked'" \
               -o tsv)
 
-            if test $isLocked; then
+            if $isLocked; then
               az storage blob lease break \
                 --blob-name "terraform.tfstate" \
                 --container-name ${{ env.AZURE_STORAGE_TFSTATE }} \
