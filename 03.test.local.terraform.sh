@@ -3,6 +3,7 @@ set -euo pipefail
 
 dqt='"'
 
+export TF_WARN_OUTPUT_ERRORS=1
 
 ###########################################################################
 #### Create service principal and save to $HOME/rbac.json
@@ -12,11 +13,18 @@ dqt='"'
 
 az account set --subscription $AZURE_SUBSCRIPTION_ID
 
-echo "Init terraform"
+echo "Format terraform files..."
+terraform fmt
+echo "... with RC ==> $?"
+
+echo "Init terraform..."
 terraform init 
+echo "... with RC ==> $?"
 
-echo "Format check terraform"
-terraform fmt -check
+echo "Validate terraform confif files..."
+terraform validate
+echo "... with RC ==> $?"
 
-echo "Plan terraform"
+echo "Plan terraform..."
 terraform plan
+echo "... with RC ==> $?"

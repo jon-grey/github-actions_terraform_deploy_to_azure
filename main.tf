@@ -30,8 +30,8 @@ provider "azurerm" {
 #######################################################################################
 
 resource "azurerm_resource_group" "vms" {
-  name     =  var.az_resource_group_name_devs
-  location =  var.az_location
+  name     = var.az_resource_group_name_devs
+  location = var.az_location
 
   tags = {
     environment = "Devs"
