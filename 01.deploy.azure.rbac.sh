@@ -20,6 +20,8 @@ echo "
 #### Create service principal used in terraform and save to $RBAC_JSON
 ###########################################################################"
 
+
+
 . exports-private.sh
 
 # uncomment at first run
