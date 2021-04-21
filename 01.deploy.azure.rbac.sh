@@ -12,9 +12,13 @@ function rdict {
 	python3 -c "print($1[${dqt}$2${dqt}])"
 }
 
+export RBAC_JSON="$HOME/rbac.json"
+export RBAC_SDK_JSON="$HOME/rbac-sdk.json"
+
+echo "
 ###########################################################################
-#### Create service principal and save to $HOME/rbac.json
-###########################################################################
+#### Create service principal used in terraform and save to $RBAC_JSON
+###########################################################################"
 
 . exports-private.sh
 
@@ -23,8 +27,8 @@ function rdict {
 
 az account set --subscription $AZURE_SUBSCRIPTION_ID
 
-# Generate Azure client id and secret.
-export RBAC_JSON="$HOME/rbac.json"
+# Generate Azure client id and secret for terraform.
+
 
 if test -f "$RBAC_JSON"; then
 	RBAC="$(cat $RBAC_JSON)"
@@ -40,15 +44,32 @@ ARM_TENANT_ID=$(rdict     "${RBAC}" "tenant")
 ARM_CLIENT_ID=$(rdict     "${RBAC}" "appId")
 ARM_CLIENT_SECRET=$(rdict "${RBAC}" "password")
 
-echo "Store json below as AZURE_CREDENTIALS in github secrets"
-echo "======================================================"
-echo $RBAC 
-echo "======================================================"
-
-
-echo "
+echo " Those variables will be used in 02.make.terraform.tfvars.sh
 ARM_TENANT_ID = $ARM_TENANT_ID
 ARM_CLIENT_ID = $ARM_CLIENT_ID
 ARM_CLIENT_SECRET = $ARM_CLIENT_SECRET
 AZURE_SUBSCRIPTION_ID = $AZURE_SUBSCRIPTION_ID
 "
+
+echo "
+###########################################################################
+#### Create service principal used in github actions az cli and save to $RBAC_SDK_JSON
+###########################################################################"
+
+
+# Generate Azure client id and secret for github actions az cli.
+
+if test -f "$RBAC_SDK_JSON"; then
+	RBAC="$(cat $RBAC_SDK_JSON)"
+else
+    RBAC_NAME="--name $AZURE_SERVICE_PRINCIPAL_SDK"
+    RBAC_ROLE="--role Contributor"
+    RBAC_SCOPES="--scopes /subscriptions/${AZURE_SUBSCRIPTION_ID}"
+	RBAC=$(az ad sp create-for-rbac --sdk-auth $RBAC_NAME $RBAC_ROLE $RBAC_SCOPES)
+	echo $RBAC > $RBAC_SDK_JSON
+fi
+
+echo "Store json below as AZURE_CREDENTIALS in github secrets"
+echo "======================================================"
+cat $RBAC_SDK_JSON 
+echo "======================================================"
