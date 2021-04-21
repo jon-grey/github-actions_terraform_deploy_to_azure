@@ -16,14 +16,14 @@ provider "azurerm" {
   features {}
 }
 
-terraform {
-  backend "azurerm" {
-    resource_group_name  = var.az_resource_group_name_ops
-    storage_account_name = var.az_storage_account_ops
-    container_name       = var.az_storage_tfstate
-    key                  = "terraform.tfstate"
-  }
-}
+# terraform {
+#   backend "azurerm" { // can not use vars here, LOL
+#     resource_group_name  = var.az_resource_group_name_ops
+#     storage_account_name = var.az_storage_account_ops
+#     container_name       = var.az_storage_tfstate
+#     key                  = "terraform.tfstate"
+#   }
+# }
 
 #######################################################################################
 #### STAGE A 1.0 - Create ARG for Devs

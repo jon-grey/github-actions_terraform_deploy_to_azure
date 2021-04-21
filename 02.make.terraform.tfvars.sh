@@ -51,3 +51,20 @@ az_resource_group_name_devs = ${dqt}${AZURE_RESOURCE_GROUP_DEVS}${dqt}
 az_resource_group_name_ops  = ${dqt}${AZURE_RESOURCE_GROUP_OPS}${dqt}
 " > $TFVARS
 cat $TFVARS
+
+###########################################################################
+#### Populate terraform provider file
+###########################################################################
+
+echo "
+
+terraform {
+  backend ${dqt}azurerm${dqt} {
+    resource_group_name  = ${dqt}${AZURE_RESOURCE_GROUP_OPS}${dqt}
+    storage_account_name = ${dqt}${AZURE_STORAGE_ACCOUNT_OPS}${dqt}
+    container_name       = ${dqt}${AZURE_STORAGE_TFSTATE}${dqt}
+    key                  = ${dqt}terraform.tfstate${dqt}
+  }
+}
+
+" > provider.tf
