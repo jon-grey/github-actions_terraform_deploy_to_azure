@@ -44,12 +44,23 @@ ARM_TENANT_ID=$(rdict     "${RBAC}" "tenant")
 ARM_CLIENT_ID=$(rdict     "${RBAC}" "appId")
 ARM_CLIENT_SECRET=$(rdict "${RBAC}" "password")
 
-echo " Those variables will be used in 02.make.terraform.tfvars.sh
+echo "
+Store SECRETS below as [github secrets](https://github.com/jon-grey/github-actions_terraform_deploy_to_azure/settings/secrets/actions)
+======================================================
 ARM_TENANT_ID = $ARM_TENANT_ID
 ARM_CLIENT_ID = $ARM_CLIENT_ID
 ARM_CLIENT_SECRET = $ARM_CLIENT_SECRET
 AZURE_SUBSCRIPTION_ID = $AZURE_SUBSCRIPTION_ID
-"
+======================================================"
+
+while true; do
+    read -p "Done updating secrets?" yn
+    case $yn in
+        [Yy]* ) break;;
+        [Nn]* ) continue;;
+        * ) echo "Please answer yes or no.";;
+    esac
+done
 
 echo "
 ###########################################################################
@@ -73,3 +84,12 @@ echo "Store json below as AZURE_CREDENTIALS in github secrets"
 echo "======================================================"
 cat $RBAC_SDK_JSON 
 echo "======================================================"
+
+while true; do
+    read -p "Done updating secrets?" yn
+    case $yn in
+        [Yy]* ) break;;
+        [Nn]* ) continue;;
+        * ) echo "Please answer yes or no.";;
+    esac
+done

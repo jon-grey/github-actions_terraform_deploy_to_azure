@@ -48,3 +48,5 @@ exports-private.sh
 
 
 
+.gitsecret/keys/random_seed
+!*.secret
