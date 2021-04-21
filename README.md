@@ -11,6 +11,12 @@ bash 00.main.sh
 
 # Issues
 
+## terraform plan hangs in github actions
+
+![](2021-04-21-21-45-13.png)
+
+As we can here `command: asking for input: "var.az_storage_account_devs"` there are no variables, so we have to unignore `terraform.tfvars` file. LOL
+
 ## terraform plan is locked
 
 When we try `terraform plan`

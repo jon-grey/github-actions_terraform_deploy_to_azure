@@ -38,7 +38,7 @@ echo "
 #### Populate terraform variables file
 ###########################################################################"
 
-TFVARS="terraform.tfvars"
+TFVARS="variables.tfvars"
 
 echo "
 az_location                 = ${dqt}${AZURE_LOCATION}${dqt}
@@ -67,6 +67,7 @@ terraform {
 }
 
 " > provider.tf
+cat provider.tf
 
 echo "
 ###########################################################################
