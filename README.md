@@ -1,22 +1,10 @@
 
 # Deployment steps
 
-# Install terraform
+## Setup provisioning
 
 ```sh
-bash 01.setup.terraform.sh
-```
-
-# Setup Azure RBAC
-
-```sh
-bash 01.setup.azure.rbac.sh
-```
-
-# Setup Azure for Terraform
-
-```sh
-bash 02.setup.azure.terraform.sh
+bash 00.main.sh
 ```
 
 
@@ -36,8 +24,7 @@ and in azure portal we see
 or in az cli we can do
 
 ```sh
-az storage blob show --name "terraform.tfstate" --container-name ${AZURE_STORAGE_TFSTATE} --account-name ${AZU
-RE_STORAGE_ACCOUNT_OPS}  
+az storage blob show --name "terraform.tfstate" --container-name ${AZURE_STORAGE_TFSTATE} --account-name ${AZURE_STORAGE_ACCOUNT_OPS}  
 ```
 
 to see 
