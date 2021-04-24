@@ -16,6 +16,9 @@ jobs:
       AZURE_CREDENTIALS: ${{secrets.AZURE_CREDENTIALS}}
       TF_LOG: DEBUG
 
+    defaults:
+      run:
+        working-directory: ./deployments
     steps:
       - uses: actions/checkout@v2
 

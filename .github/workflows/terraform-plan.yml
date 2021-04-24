@@ -17,6 +17,9 @@ jobs:
       ARM_TENANT_ID: ${{secrets.ARM_TENANT_ID}}
       TF_LOG: DEBUG
 
+    defaults:
+      run:
+        working-directory: ./deployments
     steps:
       - uses: actions/checkout@v2
 

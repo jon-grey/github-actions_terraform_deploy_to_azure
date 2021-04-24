@@ -4,7 +4,7 @@ set -euo pipefail
 dqt='"'
 
 
-. exports-private.sh
+. ../exports-private.sh
 
 az account set --subscription $AZURE_SUBSCRIPTION_ID
 

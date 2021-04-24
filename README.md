@@ -27,7 +27,7 @@ fi
 
 ## terraform plan hangs in github actions
 
-![](2021-04-21-21-45-13.png)
+![](images/README/2021-04-21-21-45-13.png)
 
 As we can here `command: asking for input: "var.az_storage_account_devs"` there are no variables, so we have to unignore `terraform.tfvars` file. LOL
 
@@ -35,11 +35,11 @@ As we can here `command: asking for input: "var.az_storage_account_devs"` there 
 
 When we try `terraform plan`
 
-![](2021-04-21-19-16-24.png)
+![](images/README/2021-04-21-19-16-24.png)
 
 and in azure portal we see
 
-![](2021-04-21-19-16-41.png)
+![](images/README/2021-04-21-19-16-41.png)
 
 or in az cli we can do
 
@@ -49,7 +49,7 @@ az storage blob show --name "terraform.tfstate" --container-name ${AZURE_STORAGE
 
 to see 
 
-![](2021-04-21-19-23-45.png)
+![](images/README/2021-04-21-19-23-45.png)
 
 Then we can break lease of blob in azure
 
