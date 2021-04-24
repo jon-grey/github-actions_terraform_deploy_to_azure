@@ -74,6 +74,17 @@ echo "
 #### Populate .github/workflows env vars
 ###########################################################################"
 
-sed -i "s/AZURE_STORAGE_TFSTATE:\s.*/AZURE_STORAGE_TFSTATE: ${AZURE_STORAGE_TFSTATE}/" ../.github/workflows/terraform-plan.yml
+for fp in ../.github/workflows/*.yml; do
 
-sed -i "s/AZURE_STORAGE_ACCOUNT_OPS:\s.*/AZURE_STORAGE_ACCOUNT_OPS: ${AZURE_STORAGE_ACCOUNT_OPS}/" ../.github/workflows/terraform-plan.yml
+sed \
+  -i "s/AZURE_STORAGE_TFSTATE:\s.*/AZURE_STORAGE_TFSTATE: ${AZURE_STORAGE_TFSTATE}/" \
+  $fp
+
+sed \
+  -i "s/AZURE_STORAGE_ACCOUNT_OPS:\s.*/AZURE_STORAGE_ACCOUNT_OPS: ${AZURE_STORAGE_ACCOUNT_OPS}/" \
+  $fp
+
+done
+
+
+

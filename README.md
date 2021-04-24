@@ -1,14 +1,12 @@
 
 # Deployment steps
 
-## Setup provisioning
+## Setup deployments
+
+In here we create Azure RBAC, install terraform locally, setup resources in Azure for Terraform. 
 
 ```sh
-bash 00.main.sh
-
-git add .
-git commit -m "Update at $(date)"
-git push --set-upstream origin branch
+make
 ```
 
 ## Manually unlock terraform.tfstate blob in azure
