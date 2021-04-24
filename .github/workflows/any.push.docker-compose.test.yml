@@ -25,10 +25,13 @@ jobs:
 
       - name: Test
         run: |
-        # disable command workflow processing
-        echo "::stop-commands::`echo -n ${{ github.token }} | sha256sum | head -c 64`"
+          # disable command workflow processing
+          echo "::stop-commands::`echo -n ${{ github.token }} | sha256sum | head -c 64`"
 
-        bash docker-compose.tests.sh
+          # log untrusted output
+          echo "untrusted output at $PWD"
 
-        # enable workflow command processing
-        echo "::`echo -n ${{ github.token }} | sha256sum | head -c 64`::"
+          bash docker-compose.tests.sh
+
+          # enable workflow command processing
+          echo "::`echo -n ${{ github.token }} | sha256sum | head -c 64`::"
