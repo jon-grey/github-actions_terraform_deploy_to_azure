@@ -15,8 +15,7 @@ echo "
 az account set --subscription $AZURE_SUBSCRIPTION_ID
 
 (
-    cd deployments
-    cd depl1
+    cd ../deployments
 
     echo "Format terraform files..."
     terraform fmt
@@ -33,6 +32,6 @@ az account set --subscription $AZURE_SUBSCRIPTION_ID
     echo "Plan terraform..."
     terraform plan
     echo "... with RC ==> $?"
-) || true 
+)
 
-echo $PWD
+
