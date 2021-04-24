@@ -16,7 +16,7 @@ jobs:
 
     defaults:
       run:
-        working-directory: ./deployments
+        working-directory: ./deployments/docker-compose
     steps:
       - uses: actions/checkout@v2
 
