@@ -15,23 +15,12 @@ echo "
 az account set --subscription $AZURE_SUBSCRIPTION_ID
 
 (
-    cd ../deployments/terraform
+    cd ../deployments/docker-compose
 
-    echo "Format terraform files..."
-    terraform fmt
-    echo "... with RC ==> $?"
+    docker-compose up -d
 
-    echo "Init terraform..."
-    terraform init 
-    echo "... with RC ==> $?"
+    bash docker-compose.tests.sh
 
-    echo "Validate terraform confif files..."
-    terraform validate
-    echo "... with RC ==> $?"
-
-    echo "Plan terraform..."
-    terraform plan
-    echo "... with RC ==> $?"
 )
 
 
