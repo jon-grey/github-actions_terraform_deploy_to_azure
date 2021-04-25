@@ -22,7 +22,7 @@ echo "
 
 
 
-. exports-private.sh
+. ../exports-private.sh
 
 # uncomment at first run
 # az login 

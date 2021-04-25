@@ -1,4 +1,4 @@
-name: Terraform Apply
+name: Main - Push - Terraform Apply
 
 on:
   push:
@@ -16,6 +16,9 @@ jobs:
       AZURE_CREDENTIALS: ${{secrets.AZURE_CREDENTIALS}}
       TF_LOG: DEBUG
 
+    defaults:
+      run:
+        working-directory: ./deployments/terraform
     steps:
       - uses: actions/checkout@v2
 

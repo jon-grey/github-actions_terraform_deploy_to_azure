@@ -1,8 +1,6 @@
 #!/bin/bash
 set -euo pipefail
 
-dqt='"'
-
 export TF_WARN_OUTPUT_ERRORS=1
 
 echo "
@@ -15,7 +13,7 @@ echo "
 az account set --subscription $AZURE_SUBSCRIPTION_ID
 
 (
-    cd ../deployments
+    cd ../deployments/terraform
 
     echo "Format terraform files..."
     terraform fmt
