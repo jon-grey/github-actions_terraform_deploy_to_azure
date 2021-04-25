@@ -1,4 +1,8 @@
 
+# TODO
+
+[ ] - 
+
 # Deployment steps
 
 > Note: terraform for azure will not work before doing `make setup-deployments; make submit-deployments` or simply `make all`. As such github actions will fail as they need secrets!
@@ -23,6 +27,12 @@ In github
 
 
 # Issues
+
+## Parallel access to same azure blob 
+
+Each github workflow using storage blob should have its own blob as they try to lock the same blob
+
+![](images/README/2021-04-25-20-27-46.png)
 
 
 ## Manually unlock terraform.tfstate blob in azure
