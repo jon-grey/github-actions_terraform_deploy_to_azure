@@ -1,8 +1,6 @@
 #!/bin/bash
 set -euo pipefail
 
-dqt='"'
-
 export TF_WARN_OUTPUT_ERRORS=1
 
 echo "

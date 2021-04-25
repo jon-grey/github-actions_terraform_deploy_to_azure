@@ -1,11 +1,6 @@
 #!/bin/bash
 set -euo pipefail
 
-dqt='"'
-
-
-
-
 . ../exports-private.sh
 
 az account set --subscription $AZURE_SUBSCRIPTION_ID
@@ -26,7 +21,7 @@ echo "
 ###########################################################################"
 
 function rdict {
-	python3 -c "print($1[${dqt}$2${dqt}])"
+	python3 -c "print($1[${DQT}$2${DQT}])"
 }
 
 ARM_TENANT_ID=$(rdict     "$RBAC" "tenant")
@@ -41,13 +36,13 @@ echo "
 TFVARS="../deployments/terraform.tfvars"
 
 echo "
-az_location                 = ${dqt}${AZURE_LOCATION}${dqt}
-az_storage_tfstate          = ${dqt}${AZURE_STORAGE_TFSTATE}${dqt}
-az_storage_account_ops      = ${dqt}${AZURE_STORAGE_ACCOUNT_OPS}${dqt}
-az_storage_account_devs     = ${dqt}${AZURE_STORAGE_ACCOUNT_DEVS}${dqt}
-az_resource_group_name_devs = ${dqt}${AZURE_RESOURCE_GROUP_DEVS}${dqt}
-az_resource_group_name_ops  = ${dqt}${AZURE_RESOURCE_GROUP_OPS}${dqt}
-date                        = ${dqt}$(date)${dqt}
+az_location                 = ${DQT}${AZURE_LOCATION}${DQT}
+az_storage_tfstate          = ${DQT}${AZURE_STORAGE_BLOB_TFSTATE}${DQT}
+az_storage_account_ops      = ${DQT}${AZURE_STORAGE_ACCOUNT_OPS}${DQT}
+az_storage_account_devs     = ${DQT}${AZURE_STORAGE_ACCOUNT_DEVS}${DQT}
+az_resource_group_name_devs = ${DQT}${AZURE_RESOURCE_GROUP_DEVS}${DQT}
+az_resource_group_name_ops  = ${DQT}${AZURE_RESOURCE_GROUP_OPS}${DQT}
+date                        = ${DQT}$(date)${DQT}
 " > $TFVARS
 cat $TFVARS
 
@@ -59,11 +54,11 @@ echo "
 echo "
 
 terraform {
-  backend ${dqt}azurerm${dqt} {
-    resource_group_name  = ${dqt}${AZURE_RESOURCE_GROUP_OPS}${dqt}
-    storage_account_name = ${dqt}${AZURE_STORAGE_ACCOUNT_OPS}${dqt}
-    container_name       = ${dqt}${AZURE_STORAGE_TFSTATE}${dqt}
-    key                  = ${dqt}terraform.tfstate${dqt}
+  backend ${DQT}azurerm${DQT} {
+    resource_group_name  = ${DQT}${AZURE_RESOURCE_GROUP_OPS}${DQT}
+    storage_account_name = ${DQT}${AZURE_STORAGE_ACCOUNT_OPS}${DQT}
+    container_name       = ${DQT}${AZURE_STORAGE_BLOB_TFSTATE}${DQT}
+    key                  = ${DQT}terraform.tfstate${DQT}
   }
 }
 
@@ -77,7 +72,7 @@ echo "
 for fp in ../.github/workflows/*.yml; do
 
 sed \
-  -i "s/AZURE_STORAGE_TFSTATE:\s.*/AZURE_STORAGE_TFSTATE: ${AZURE_STORAGE_TFSTATE}/" \
+  -i "s/AZURE_STORAGE_BLOB_TFSTATE:\s.*/AZURE_STORAGE_BLOB_TFSTATE: ${AZURE_STORAGE_BLOB_TFSTATE}/" \
   $fp
 
 sed \
