@@ -20,6 +20,7 @@ echo "
 #### Test infrastructure management deployments setup
 ###########################################################################"
 bash 02.make.terraform.tfvars.sh
+bash 02.setup.azure.blob.terraform-tfstate.sh
 bash 03.test.local.terraform.sh
 
 git add --all
