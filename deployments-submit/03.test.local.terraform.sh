@@ -8,8 +8,6 @@ echo "
 #### Create service principal and save to $HOME/rbac.json
 ###########################################################################"
 
-. ../exports-private.sh
-
 az account set --subscription $AZURE_SUBSCRIPTION_ID
 
 (
